@@ -32,8 +32,9 @@ const SigninScreen = ({ navigation }) => {
     return(
         <View style={styles.container}>
             <Spacer>
-                <Text h3>Sign in</Text>
+                <Text style={{fontSize: 30}}>Login</Text>
             </Spacer>
+            <Spacer />
             <Input 
              label='Email'
              value={email}
@@ -56,6 +57,8 @@ const SigninScreen = ({ navigation }) => {
                 <Button title='Sign in' onPress={async () => {
                     setLoading(true)
                     const { data, error} = await supabase.auth.signInWithPassword({ email, password })
+                    console.log(supabase);
+                    
                     setLoading(false)
                     if(!error){
                         dispatch({ type : 'hasSignedIn'})
@@ -86,7 +89,8 @@ SigninScreen.navigationOptions = () => {
     container:{
         flex: 1, // fill all vertical space
         justifyContent: "center",
-        marginBottom: 200
+        marginBottom: 200,
+        paddingHorizontal: 10,
     },
 })
 

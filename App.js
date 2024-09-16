@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from "react";
+import { Audio } from 'expo-av';
+import React, { useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -7,105 +8,76 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import SigninScreen from './src/screens/SigninScreen'
 import SignupScreen from "./src/screens/SignupScreen";
-import DashboardScreen from "./src/screens/DashboardScreen";
-import RoleSelectorScreen from "./src/screens/RoleSelectorScreen";
-import AddGroupScreen from "./src/screens/AddGroupScreen";
-import GroupScreen from "./src/screens/GroupScreen";
 import CustomDrawer from './src/components/CustomDrawer';
-import { userHasRole } from "./src/util/user";
+
 import { useDispatch, Provider, useSelector } from 'react-redux';
 import { store } from "./src/redux/store";
 import { supabase } from "./src/supabase";
+import HomeStack from './src/navigation/HomeStack';
 
 const Stack = createNativeStackNavigator();
-const Switch = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 
 const App = () => {
-    const roleHasBeenSelected  = useSelector(state => state.session.roleHasBeenSelected)
     const isSignedIn  = useSelector(state => state.session.isSignedIn)
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchRole = async () => {
-            try {
-                const { data: { session } } = await supabase.auth.getSession()
-                if (session) {
-                    const roleSelected = await userHasRole();
-                    if (!roleSelected) {
-                        dispatch({ type: 'roleNotSelected' });
-                    }
-                }
-            } catch (error) {
-                console.error("Error fetching role:", error);
-            }
-        };
 
+        const disableSounds = async () => {
+            await Audio.setAudioModeAsync({
+                isMuted : true,
+            })
         const checkLogin  = async () => {
             const {data : {session}} = await supabase.auth.getSession()
             if(session){
                 dispatch({type : 'hasSignedIn'})
             }
         }
+
+        disableSounds()
+
         checkLogin()
-        fetchRole();
-    }, [isSignedIn, roleHasBeenSelected]);
 
+    }
+    }, [isSignedIn]);
 
+    const screenOptions={
+        headerShown: false,
+        drawerStyle: {
+            backgroundColor: 'white',
+            width: 240,
+        },
+    }
     return (
     <NavigationContainer>
-        <Switch.Navigator screenOptions={{ headerShown: false }}>
-            { isSignedIn? 
-                <Stack.Screen 
-                    name={'Main'} 
-                    component={MainStack} 
-                /> 
-                : 
-                <Stack.Screen 
-                    name={'Auth'} 
-                    component={AuthStack}
+        {isSignedIn ? (
+            <Drawer.Navigator 
+            drawerContent={props => <CustomDrawer {...props} 
+            />}>
+                <Drawer.Screen 
+                name=" " 
+                component={HomeStack} 
                 />
-            }
-            
-            
-        </Switch.Navigator>
+            </Drawer.Navigator>
+        ) : (
+            <Stack.Navigator initialRouteName='Signin'>
+                <Stack.Screen name='Signin'  component={SigninScreen} 
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen name='Signup' component={SignupScreen} 
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        )}
+        
     </NavigationContainer>
     )
 
 };
 
-const MainStack = () => {
-
-    const roleHasBeenSelected  = useSelector(state => state.session.roleHasBeenSelected)
-
-    return(
-    <Stack.Navigator initialRouteName="Dashboard" >
-        {roleHasBeenSelected?
-              <>
-                <Stack.Screen name="Dashboard" component={DashboardScreen} />
-                <Stack.Screen name="AddGroup" component={AddGroupScreen} />
-                <Stack.Screen name="Group" component={GroupScreen} />
-              </>
-              :
-              
-              <Stack.Screen name="RoleSelector" component={RoleSelectorScreen} />
-
-        }
- 
-    </Stack.Navigator>
-  )
-
-}
-
-const AuthStack = () => {
-    return(
-    <Stack.Navigator initialRouteName='Signin'>
-        <Stack.Screen name='Signin' component={SigninScreen} />
-        <Stack.Screen name='Signup' component={SignupScreen} />
-    </Stack.Navigator>
-)}
 
 export default () => (
     <Provider store={store}>

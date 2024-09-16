@@ -15,8 +15,9 @@ const SignupScreen = ({ navigation }) => {
   return(
     <View style={styles.container}>
         <Spacer>
-            <Text h3>Sign up</Text>
+        <Text style={{fontSize: 30}}>Sign up</Text>
         </Spacer>
+        <Spacer />
         <Input 
          label='Email'
          value={email}
@@ -71,7 +72,8 @@ const styles = StyleSheet.create({
     container:{
         flex: 1, // fill all vertical space
         justifyContent: "center",
-        marginBottom: 200
+        marginBottom: 200,
+        paddingHorizontal: 10,
     },
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet} from 'react-native'
+import { StyleSheet, View} from 'react-native'
 import { Text, Button, Input } from '@rneui/base'
 import Spacer from './Spacer'
 
@@ -10,10 +10,10 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, callba
 
 
     return(
-        <>
-            <Spacer>
-                <Text h3>{headerText}</Text>
-            </Spacer>
+        <View style={{padding: 20}}>
+            <Spacer/>
+                <Text >{headerText}</Text>
+            <Spacer/>
             <Input 
              label='Email'
              value={email}
@@ -43,7 +43,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, callba
                     }
                 }} />
             </Spacer>
-        </>
+        </View>
 
     )
 }

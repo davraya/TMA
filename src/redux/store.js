@@ -1,7 +1,7 @@
 import { createStore, combineReducers  } from 'redux'
 import { fetchGroups } from '../../models/fetch'
 
-const sessionReducer = (state = {roleHasBeenSelected : true, isSignedIn : false} , action) => {
+const sessionReducer = (state = {roleHasBeenSelected : true, isSignedIn : false, userName: '', role: ''} , action) => {
     if (action.type == 'roleNotSelected'){
         return {
             ...state,
@@ -26,6 +26,18 @@ const sessionReducer = (state = {roleHasBeenSelected : true, isSignedIn : false}
                 ...state, isSignedIn : false
             }
         }
+    if(action.type == 'nameSelected')
+        {
+            return {
+                ...state, userName : action.payload.name
+            }
+        }
+    if(action.type == 'setRole')
+        {
+            return {
+                ...state, role : action.payload.role
+            }
+        }
 
     return state
 }
@@ -38,6 +50,11 @@ const groupsReducer = (state = {groups : []} , action) => {
     }
     if (action.type == 'clearGroups'){
         return { groups : []}
+    }
+    if (action.type == 'deleteGroup'){
+        return {
+            groups : state.groups.filter(group => group.id != action.payload)
+        }
     }
 
     return state
