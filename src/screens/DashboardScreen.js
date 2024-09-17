@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import styles from "../styles/DashboardStyles";
+import { View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Text, Icon, ListItem, SpeedDial } from '@rneui/base';
 import Spacer from "../components/Spacer";
 import { fetchGroups } from "../../models/fetch";
@@ -7,6 +8,7 @@ import { deleteGroup } from "../../models/delete";
 import { useDispatch, useSelector } from "react-redux";
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
+
 
 const DashbaordScreen = ({ navigation }) => {
   const groups = useSelector(state => state.groups.groups);
@@ -16,12 +18,12 @@ const DashbaordScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const configureScreen = async () => {
+    const initializeData = async () => {
       const usersGroups = await fetchGroups();
       dispatch({ type: 'updateGroups', payload: usersGroups });
     };
 
-    configureScreen();
+    initializeData();
   }, []);
 
   const handleDeleteGroup = async (id) => {
@@ -29,9 +31,9 @@ const DashbaordScreen = ({ navigation }) => {
     dispatch({ type: 'deleteGroup', payload: id });
   };
 
-  const keyExtractor = (item) => item.id.toString();
+  const keyExtractor = (group) => group.id.toString();
 
-  const renderItem = ({ item }) => (
+  const groupComponent = ({ item }) => (
     <TouchableOpacity 
       style={styles.touchableContainer}
       onPress={() => { 
@@ -44,7 +46,6 @@ const DashbaordScreen = ({ navigation }) => {
         </ListItem.Content>
         {deleteMode && (
           <TouchableOpacity 
-            style={styles.deleteButton}
             onPress={() => handleDeleteGroup(item.id)}
           >
             <Icon name="delete" color="red" />
@@ -54,6 +55,8 @@ const DashbaordScreen = ({ navigation }) => {
     </TouchableOpacity>
   );
 
+
+  // MAIN JSX COMPONENT
   return (
     <View style={styles.container}>
       <Spacer />
@@ -71,7 +74,7 @@ const DashbaordScreen = ({ navigation }) => {
       <FlatList
         keyExtractor={keyExtractor}
         data={groups}
-        renderItem={renderItem}
+        renderItem={groupComponent}
         ItemSeparatorComponent={<Spacer />}
       />
       <SpeedDial
@@ -112,74 +115,7 @@ DashbaordScreen.navigationOptions = () => {
   };
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    position: 'relative',
-    backgroundColor: '#f8f9fa', // Light background color
-  },
-  title: {
-    fontSize: 30,
-    color: '#333',
-    fontFamily: 'sans-serif',
-    fontWeight: '400',
-  },
-  touchableContainer: {
-    borderRadius: 10,
-    margin: 5,
-    overflow: 'visible', // Ensure shadow is not clipped
-    elevation: 2, // Higher elevation for Android
 
-  },
-  listItem: {
-    borderRadius: 10,
-    backgroundColor: '#fff', // Background color for each list item
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    flexDirection: 'row', // Ensure items are aligned horizontally
-    justifyContent: 'space-between', // Space between icon, title, and delete button
-  },
-  groupContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1, // Allow content to fill available space
-    justifyContent: 'space-between',
-  },
-  groupTitle: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#333',
-    marginLeft: 10, // Space between icon and text
-  },
-  deleteButton: {
-    // padding: 8, // Added padding for touch area
-  },
-  addDial: {
-    backgroundColor: 'green',
-    width: 50,
-    height: 50,
-  },
-  deleteDial: {
-    backgroundColor: 'red',
-    width: 50,
-    height: 50,
-  },
-  mainDial: {
-    backgroundColor: 'gray',
-  },
-  done: {
-    color: '#1E90FF',
-    fontSize: 18,
-    backgroundColor: 'white',
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    elevation: 2,
-    borderRadius: 10,
-
-  }
-});
 
 
 
