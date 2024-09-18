@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Button } from '@rneui/base';
-import {searchUsers} from '../../models/fetch'
-import {addUserToGroup} from '../../models/insert'
+import {searchUsers} from '../models/fetch'
+import {addUserToGroup} from '../models/insert'
 
 const AddUserScreen = ({ navigation, route }) => {
     

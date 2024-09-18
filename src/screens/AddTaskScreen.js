@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import { Text, Button, Input } from '@rneui/base'
 import Spacer from '../components/Spacer'
-import { insertNewTask } from '../../models/insert'
+import { insertNewTask } from '../models/insert'
 
 const AddInfoScreen = ({ navigation }) => {
     const [title, setTitle] = useState('')

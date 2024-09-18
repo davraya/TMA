@@ -1,5 +1,5 @@
-import { supabase } from "../src/supabase";
-import { getUserUid } from "../src/util/user";
+import { supabase } from "../supabase";
+import { getUserUid } from "../util/user";
 
 
 const updateUserRole = async (selectedRole, user_uid, groupCode) => {

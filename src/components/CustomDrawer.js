@@ -4,7 +4,7 @@ import { View, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { supabase } from '../supabase';
-import { fetchUserById } from '../../models/fetch'
+import { fetchUserById } from '../models/fetch'
 import { Text, Icon } from '@rneui/base';
 import { MaterialIcons } from '@expo/vector-icons';
 

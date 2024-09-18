@@ -1,4 +1,4 @@
-import { supabase } from "../src/supabase";
+import { supabase } from "../supabase";
 
 const deleteUser = async (id) => {
 

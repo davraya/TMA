@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, ListItem, FAB, SpeedDial, Icon } from '@rneui/base';
 import Spacer from '../components/Spacer';
-import { fetchTasks } from '../../models/fetch';
+import { fetchTasks } from '../models/fetch';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import { asssignTask } from '../../models/insert';
+import { asssignTask } from '../models/insert';
 import CustomSlider from '../components/CustomSlider';
 
 const AssignTaskScreen = ({ navigation, route }) => {

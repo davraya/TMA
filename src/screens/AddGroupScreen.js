@@ -3,7 +3,7 @@ import { Text, Button, Input } from '@rneui/base'
 import { useState } from "react";
 import Spacer from "../components/Spacer";
 import { supabase } from "../supabase";
-import { fetchGroups } from "../../models/fetch";
+import { fetchGroups } from "../models/fetch";
 import { useDispatch } from "react-redux";
 
 

@@ -1,4 +1,4 @@
-import { supabase } from '../src/supabase'
+import { supabase } from '../supabase'
 
 const updateTaskStatus = async (task_id, status_id) => {
     try {

@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { ListItem, Icon, Text } from '@rneui/base';
 import Swiper from 'react-native-swiper';
 import { MaterialIcons } from '@expo/vector-icons';
-import { fetchPeersTasks, fetchUsersTasks } from '../../models/fetch';
-import { updateTaskStatus } from '../../models/update';
+import { fetchPeersTasks, fetchUsersTasks } from '../models/fetch';
+import { updateTaskStatus } from '../models/update';
 import { getUserUid } from '../util/user';
 import Spacer from '../components/Spacer';
 

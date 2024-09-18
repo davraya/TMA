@@ -5,7 +5,7 @@ import Spacer from "../components/Spacer";
 import { supabase } from "../supabase";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserUid, userHasRole } from "../util/user";
-import { updateUserRole } from "../../models/insert";
+import { updateUserRole } from "../models/insert";
 
 
 const RoleSelectorScreen = ({ navigation }) => {
