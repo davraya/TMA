@@ -1,39 +1,39 @@
-import React, { useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback} from 'react'
 import styles from '../styles/GroupStyles'
-import { View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import { Text, ListItem, FAB, SpeedDial, Icon, Dialog, CheckBox  } from '@rneui/base';
-import Spacer from '../components/Spacer';
-import { fetchGroupMembers, fetchGroupTasks } from '../models/fetch';
-import { updateTaskStatus } from '../models/update';
-import { deleteUser } from '../models/delete';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { SelectCountry } from 'react-native-element-dropdown';
+import { View, TouchableOpacity, FlatList, StyleSheet} from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
+import { Text, ListItem, FAB, SpeedDial, Icon, Dialog, CheckBox  } from '@rneui/base'
+import Spacer from '../components/Spacer'
+import { fetchGroupMembers, fetchGroupTasks } from '../models/fetch'
+import { updateTaskStatus } from '../models/update'
+import { deleteUser } from '../models/delete'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
+import { SelectCountry } from 'react-native-element-dropdown'
 import Swiper from 'react-native-swiper'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 
 
 const GroupScreen = ({ navigation, route }) => {
-  const { params : {groupName, id} } = route;
+  const { params : {groupName, id} } = route
   const [groupMembers, setGroupMembers] = useState([])
-  const [open, setOpen] = useState(false);
-  const [deleteMode, setDeleteMode] = useState(false);
+  const [open, setOpen] = useState(false)
+  const [deleteMode, setDeleteMode] = useState(false)
   const [groupTasks, setGroupTasks] = useState([])
-  const [visible, setVisible] = useState(false);
-  const [checked, setChecked] = useState(1);
-  const [changingTaskId, setchangingTaskId] = useState(false);
-  const [reload, setReload] = useState(false);
-  const [filteredTasks, setFilteredTasks] = useState([]);
-  const [filterStatus, setFilterStatus] = useState('');
+  const [visible, setVisible] = useState(false)
+  const [checked, setChecked] = useState(1)
+  const [changingTaskId, setchangingTaskId] = useState(false)
+  const [reload, setReload] = useState(false)
+  const [filteredTasks, setFilteredTasks] = useState([])
+  const [filterStatus, setFilterStatus] = useState('')
   const statuses = [
   { displayTitle: 'Completed', title: 'Completed', id: 3 },
   { displayTitle: 'Unassigned', title: 'Unassigned', id: 4 },
   { displayTitle: 'Incomplete', title: 'Incomplete', id: 1 },
   { displayTitle: 'Waiting for...', title: 'Waiting for Supervisor', id: 2 }
-  ];
+  ]
 
   const filterByStatus = (status_id) => {
     const filteredTasks = groupTasks.filter(task => task.status_name === status_id)
@@ -42,35 +42,35 @@ const GroupScreen = ({ navigation, route }) => {
   }
 
   const toggleDialog = () => {
-    setVisible(!visible);
-  };
+    setVisible(!visible)
+  }
 
   const rerender = () => {
     setReload(prev => {
-      const newState = !prev;
-      return newState;
-    });
-  };
+      const newState = !prev
+      return newState
+    })
+  }
 
   useFocusEffect(
     useCallback(() => {
-      rerender();
+      rerender()
     }, [])
-  );
+  )
 
 
   useEffect(() => {
 
     const getTasks = async (groupId) => {
-      const groupTasksResult = await fetchGroupTasks(groupId);
+      const groupTasksResult = await fetchGroupTasks(groupId)
       if (groupTasksResult === null) return
-      const sortedTasks = groupTasksResult.sort((a, b) => a.id - b.id);
-      setGroupTasks(sortedTasks);
+      const sortedTasks = groupTasksResult.sort((a, b) => a.id - b.id)
+      setGroupTasks(sortedTasks)
     }
 
     const getMembers = async () => {
       const members = await fetchGroupMembers(id)
-      setGroupMembers(members);
+      setGroupMembers(members)
     }
 
     const asyncCalls = async () => {
@@ -78,7 +78,7 @@ const GroupScreen = ({ navigation, route }) => {
       await getTasks(id)
     }
     asyncCalls()
-  }, [reload]);
+  }, [reload])
 
   
 
@@ -105,7 +105,7 @@ const GroupScreen = ({ navigation, route }) => {
             onPress={async () =>{
               await handleDelete(item.user_uuid)
               rerender()
-              console.log('delete user');
+              console.log('delete user')
 
             }}>
             <Icon name="delete" color="red" />
@@ -251,14 +251,14 @@ const GroupScreen = ({ navigation, route }) => {
                 placeholder="Filter by"
                 searchPlaceholder="Search..."
                 onChange={status => {
-                  setFilterStatus(status.title);
-                  filterByStatus(status.title);
+                  setFilterStatus(status.title)
+                  filterByStatus(status.title)
                 }}
               />
               <TouchableOpacity
                 onPress={() => {
-                  setFilterStatus("");
-                  setFilteredTasks([]);
+                  setFilterStatus("")
+                  setFilteredTasks([])
                 }}
               >
                 <MaterialCommunityIcons name="filter-off-outline" size={24} color="black" />
@@ -300,9 +300,9 @@ const GroupScreen = ({ navigation, route }) => {
       </Swiper>
 
     </View>
-  );
-};
+  )
+}
 
 
 
-export default GroupScreen;
+export default GroupScreen

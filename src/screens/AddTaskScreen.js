@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, View } from 'react-native'
+import { TextInput, View } from 'react-native'
 import { Text, Button, Input } from '@rneui/base'
 import Spacer from '../components/Spacer'
 import { insertNewTask } from '../models/insert'
+import styles from '../styles/AddTaskStyles'
 
 const AddInfoScreen = ({ navigation }) => {
     const [title, setTitle] = useState('')
@@ -49,42 +50,6 @@ const AddInfoScreen = ({ navigation }) => {
     )
 }
 
-const styles = StyleSheet.create({
-    errorMessage: {
-        fontSize: 16,
-        color: 'red',
-        marginLeft: 15
-    },
-    textInput: {
-        height: 60,
-        borderColor: 'gray',
-        borderWidth: 1,
-        padding: 10,
-        marginLeft: 15,
-        marginRight: 15,
-    },
-    input: {
-        marginLeft: 15,
-        marginRight: 15,
-    },
-    taskText: {
-        alignSelf: 'center',
-    },
-    inputContainer: {
-        marginLeft: 5,
-        marginRight: 5,
-    },
-    container : {
-        flexGrow: 1,
-        flex: 1,
-        
-    },
-    buttonContainer : {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: 10,    }
-})
+
 
 export default AddInfoScreen

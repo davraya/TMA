@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
 const Task = ({ route }) => {
-    const { task } = route.params;
-    const [deadLine, setDeadLine] = useState('');
-    const [formatedDate, setFormatedDate] = useState('');
+    const { task } = route.params
+    const [deadLine, setDeadLine] = useState('')
+    const [formatedDate, setFormatedDate] = useState('')
 
     useEffect(() => {
         const configure = () => {
@@ -16,21 +16,21 @@ const Task = ({ route }) => {
 
             setFormatedDate(`Assigned ${formattedDate} at ${formattedTime}`)
 
-            const dueDate = new Date(new Date(task.date).setDate(new Date(task.date).getDate() + 6));
-            const currentDate = new Date();
-            const dueMs = dueDate - currentDate;
+            const dueDate = new Date(new Date(task.date).setDate(new Date(task.date).getDate() + 6))
+            const currentDate = new Date()
+            const dueMs = dueDate - currentDate
 
-            const msInDay = 24 * 60 * 60 * 1000;
-            const msInHour = 60 * 60 * 1000;
+            const msInDay = 24 * 60 * 60 * 1000
+            const msInHour = 60 * 60 * 1000
 
-            const days = Math.floor(dueMs / msInDay);
-            const hours = Math.floor((dueMs % msInDay) / msInHour);
+            const days = Math.floor(dueMs / msInDay)
+            const hours = Math.floor((dueMs % msInDay) / msInHour)
 
-            setDeadLine(days ? `${days}d ${hours}h` : `${hours}h`);
+            setDeadLine(days ? `${days}d ${hours}h` : `${hours}h`)
         }
 
         configure()
-    }, []);
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -50,8 +50,8 @@ const Task = ({ route }) => {
                 </View>
             </View>
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -114,6 +114,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#d9534f', // Red color for deadline
     }
-});
+})
 
-export default Task;
+export default Task

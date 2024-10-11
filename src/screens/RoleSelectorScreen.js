@@ -1,46 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert } from "react-native";
-import { Text, Button, Input, Icon } from '@rneui/base';
-import Spacer from "../components/Spacer";
-import { supabase } from "../supabase";
-import { useSelector, useDispatch } from "react-redux";
-import { getUserUid, userHasRole } from "../util/user";
-import { updateUserRole } from "../models/insert";
+import React, { useState, useEffect } from "react"
+import { View, StyleSheet, Alert } from "react-native"
+import { Text, Button, Input, Icon } from '@rneui/base'
+import Spacer from "../components/Spacer"
+import { supabase } from "../supabase"
+import { useSelector, useDispatch } from "react-redux"
+import { getUserUid, userHasRole } from "../models/user"
+import { updateUserRole } from "../models/insert"
 
 
 const RoleSelectorScreen = ({ navigation }) => {
 
-    const roleHasBeenSelected = useSelector(state => state.session.roleHasBeenSelected);
+    const roleHasBeenSelected = useSelector(state => state.session.roleHasBeenSelected)
 
     useEffect(() => {
         const fetchRole = async () => {
             try {
                 const { data: { session } } = await supabase.auth.getSession()
                 if (session) {
-                    const roleSelected = await userHasRole();
+                    const roleSelected = await userHasRole()
                     if (!roleSelected) {
-                        dispatch({ type: 'roleNotSelected' });
+                        dispatch({ type: 'roleNotSelected' })
                     }
                 }
             } catch (error) {
-                console.error("Error fetching role:", error);
+                console.error("Error fetching role:", error)
             }
         }
 
         fetchRole()
-    }, [roleHasBeenSelected]);
+    }, [roleHasBeenSelected])
 
     const role = useSelector((state) => state.roleHasBeenSelected)
     const dispatch = useDispatch()
 
 
-    const [selectedRole, setSelectedRole] = useState('');
-    const [groupCode, setGroupCode] = useState('');
+    const [selectedRole, setSelectedRole] = useState('')
+    const [groupCode, setGroupCode] = useState('')
 
 
     const handleRoleSelection = (role) => {
-        setSelectedRole(role);
-    };
+        setSelectedRole(role)
+    }
 
     const  handleFinalizeSelection = async () => {
         const user_uid = await getUserUid()
@@ -88,14 +88,14 @@ const RoleSelectorScreen = ({ navigation }) => {
                 disabled={!selectedRole || (selectedRole === 'student' && !groupCode)}
             />
         </View>
-    );
-};
+    )
+}
 
 RoleSelectorScreen.navigationOptions = () => {
     return {
         headerShown: false,
-    };
-};
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -113,6 +113,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 5
     }
-});
+})
 
-export default RoleSelectorScreen;
+export default RoleSelectorScreen

@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from "react";
-import styles from "../styles/DashboardStyles";
-import { View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
-import { Text, Icon, ListItem, SpeedDial } from '@rneui/base';
-import Spacer from "../components/Spacer";
-import { fetchGroups } from "../models/fetch";
-import { deleteGroup } from "../models/delete";
-import { useDispatch, useSelector } from "react-redux";
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome6 } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react"
+import styles from "../styles/DashboardStyles"
+import { View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native"
+import { Text, Icon, ListItem, SpeedDial } from '@rneui/base'
+import Spacer from "../components/Spacer"
+import { fetchGroups } from "../models/fetch"
+import { deleteGroup } from "../models/delete"
+import { useDispatch, useSelector } from "react-redux"
+import { AntDesign } from '@expo/vector-icons'
+import { FontAwesome6 } from '@expo/vector-icons'
 
 
 const DashbaordScreen = ({ navigation }) => {
-  const groups = useSelector(state => state.groups.groups);
-  const [deleteMode, setDeleteMode] = useState(false);
-  const [open, setOpen] = useState(false);
+  const groups = useSelector(state => state.groups.groups)
+  const [deleteMode, setDeleteMode] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const initializeData = async () => {
-      const usersGroups = await fetchGroups();
-      dispatch({ type: 'updateGroups', payload: usersGroups });
-    };
+      const usersGroups = await fetchGroups()
+      dispatch({ type: 'updateGroups', payload: usersGroups })
+    }
 
-    initializeData();
-  }, []);
+    initializeData()
+  }, [])
 
   const handleDeleteGroup = async (id) => {
-    await deleteGroup(id);
-    dispatch({ type: 'deleteGroup', payload: id });
-  };
+    await deleteGroup(id)
+    dispatch({ type: 'deleteGroup', payload: id })
+  }
 
-  const keyExtractor = (group) => group.id.toString();
+  const keyExtractor = (group) => group.id.toString()
 
   const groupComponent = ({ item }) => (
     <TouchableOpacity 
       style={styles.touchableContainer}
       onPress={() => { 
-        navigation.navigate('Group', { groupName: item.group_name, id: item.id });
+        navigation.navigate('Group', { groupName: item.group_name, id: item.id })
       }}>
       <ListItem containerStyle={styles.listItem}>
         <FontAwesome6 name="people-group" size={24} color="black" />
@@ -53,7 +53,7 @@ const DashbaordScreen = ({ navigation }) => {
         )}
       </ListItem>
     </TouchableOpacity>
-  );
+  )
 
 
   // MAIN JSX COMPONENT
@@ -91,8 +91,8 @@ const DashbaordScreen = ({ navigation }) => {
           title="Add Group"
           buttonStyle={styles.addDial}
           onPress={() => {
-            setOpen(!open);
-            navigation.navigate('AddGroup');
+            setOpen(!open)
+            navigation.navigate('AddGroup')
           }}
         />
         <SpeedDial.Action
@@ -100,23 +100,23 @@ const DashbaordScreen = ({ navigation }) => {
           title="Delete group(s)"
           buttonStyle={styles.deleteDial}
           onPress={() => {
-            setDeleteMode(!deleteMode);
-            setOpen(!open);
+            setDeleteMode(!deleteMode)
+            setOpen(!open)
           }}
         />
       </SpeedDial>
     </View>
-  );
+  )
 }
 
 DashbaordScreen.navigationOptions = () => {
   return {
     headerShown: false,
-  };
-};
+  }
+}
 
 
 
 
 
-export default DashbaordScreen;
+export default DashbaordScreen

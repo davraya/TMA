@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, Button } from '@rneui/base';
+import React, { useState, useEffect } from 'react'
+import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, Button } from '@rneui/base'
 import {searchUsers} from '../models/fetch'
 import {addUserToGroup} from '../models/insert'
 
 const AddUserScreen = ({ navigation, route }) => {
     
-    const { params : {groupId, callback}} = route;
+    const { params : {groupId, callback}} = route
 
-  const [query, setQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [query, setQuery] = useState('')
+  const [filteredData, setFilteredData] = useState([])
+  const [selectedUser, setSelectedUser] = useState(null)
 
 
   useEffect(() => {
@@ -21,19 +21,19 @@ const AddUserScreen = ({ navigation, route }) => {
       }
     
     configureScreen()
-  }, [query]);
+  }, [query])
 
   const handleAddUser = async () => {
     if (selectedUser) {
       // Handle adding user logic here
       await addUserToGroup( groupId, selectedUser.user_uid)
       // Reset the selection after adding
-      setSelectedUser(null);
-      setQuery('');
-      setFilteredData([]);
+      setSelectedUser(null)
+      setQuery('')
+      setFilteredData([])
       navigation.goBack()
     }
-  };
+  }
 
   const renderItem = ({ item }) => (
     <TouchableOpacity 
@@ -42,7 +42,7 @@ const AddUserScreen = ({ navigation, route }) => {
     >
       <Text style={item === selectedUser ? styles.selectedItem : styles.item}>{item.first_name} {item.last_name}</Text>
     </TouchableOpacity>
-  );
+  )
 
   return (
     <View style={styles.container}>
@@ -64,8 +64,8 @@ const AddUserScreen = ({ navigation, route }) => {
         disabled={!selectedUser}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: 'green'
   }
-});
+})
 
-export default AddUserScreen;
+export default AddUserScreen

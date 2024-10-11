@@ -1,4 +1,4 @@
-import { supabase } from "../supabase";
+import { supabase } from "../supabase"
 
 const fetchGroups = async () => {
     try{
@@ -10,7 +10,7 @@ const fetchGroups = async () => {
         
         return data
     } catch(e){
-      console.log('error fetching groups', e.message);
+      console.log('error fetching groups', e.message)
     }
 
     
@@ -24,7 +24,7 @@ const fetchGroupMembers = async (groupId) => {
     return data
       
   } catch(e){
-    console.log('fetchGroupMembers e', e.message);
+    console.log('fetchGroupMembers e', e.message)
   }
 
 }
@@ -52,7 +52,7 @@ const fetchUserById = async () => {
     return {first_name: data[0].first_name, last_name: data[0].last_name}
       
   } catch(e){
-    console.log('fetchUserById e', e.message);
+    console.log('fetchUserById e', e.message)
   }
 }
   
@@ -71,27 +71,27 @@ const searchUsers = async (nameSubstring) => {
     
 
     if (error) {
-      throw error;
+      throw error
     }
 
     let usersName = {}
     try {
       usersName = await fetchUserById()
     } catch (error) {
-      console.log('fetchUserById error in searchUsers', error);
+      console.log('fetchUserById error in searchUsers', error)
     }
 
     
     const filteredData = data.filter(item => {
-      return !(item.first_name === usersName.first_name && item.last_name === usersName.last_name);
-    });
+      return !(item.first_name === usersName.first_name && item.last_name === usersName.last_name)
+    })
 
-    return filteredData; // Returns an array of users matching the regex criteria
+    return filteredData // Returns an array of users matching the regex criteria
   } catch (error) {
-    console.error('Error searching users:', error.message);
-    return null;
+    console.error('Error searching users:', error.message)
+    return null
   }
-};
+}
 
 const fetchTasks = async () => {
   try{
@@ -100,13 +100,13 @@ const fetchTasks = async () => {
       .select()
     
     if (error) {
-      throw error;
+      throw error
     }
 
     return data
       
   } catch(e){
-    console.log('fetchTasks e', e.message);
+    console.log('fetchTasks e', e.message)
   }
 
 }
@@ -119,15 +119,15 @@ const fetchGroupTasks = async (groupId) => {
     const { data, error } = await supabase
       .rpc('get_group_tasks', {group_id_param : groupId})
 
-    console.log('fetchGroupTasks data', data);
-    console.log('fetchGroupTasks error', error);
+    console.log('fetchGroupTasks data', data)
+    console.log('fetchGroupTasks error', error)
     
     if (error) {
-      throw error;
+      throw error
     }
     return data
   } catch(e){
-    console.log('fetchGroupTasks e', e.message);
+    console.log('fetchGroupTasks e', e.message)
   }
 }
 
@@ -137,11 +137,11 @@ const fetchPeersTasks = async (user_id) => {
       .rpc('get_peers_tasks', {user_id_param : user_id})
     
     if (error) {
-      throw error;
+      throw error
     }
     return data
   } catch(e){
-    console.log('fetchGroupTasks e', e.message);
+    console.log('fetchGroupTasks e', e.message)
   }
 }
 
@@ -151,11 +151,11 @@ const fetchUsersTasks = async (user_id) => {
       .rpc('get_users_tasks', {student_id_param : user_id})
     
     if (error) {
-      throw error;
+      throw error
     }
     return data
   } catch(e){
-    console.log('fetchUsersTasks e', e.message);
+    console.log('fetchUsersTasks e', e.message)
   }
 }
 

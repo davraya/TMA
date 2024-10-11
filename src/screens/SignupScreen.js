@@ -1,10 +1,10 @@
-import React, {useState} from "react";
-import { View, StyleSheet, Alert} from "react-native";
+import React, {useState} from "react"
+import { View, StyleSheet, Alert} from "react-native"
 import { Text, Button, Input } from '@rneui/base'
-import Spacer from "../components/Spacer";
-import AuthForm from "../components/AuthForm";
-import NavLink from "../components/NavLink";
-import { supabase } from "../supabase";
+import Spacer from "../components/Spacer"
+import AuthForm from "../components/AuthForm"
+import NavLink from "../components/NavLink"
+import { supabase } from "../supabase"
 
 
 const SignupScreen = ({ navigation }) => {
@@ -64,8 +64,8 @@ const SignupScreen = ({ navigation }) => {
 SignupScreen.navigationOptions = () => {
     return {
       headerShown: false,
-    };
-  };
+    }
+  }
 
 
 const styles = StyleSheet.create({

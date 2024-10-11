@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import globalStyles from './globalStyles';
+import { StyleSheet } from 'react-native'
+import globalStyles from './globalStyles'
 
 const styles = StyleSheet.create({
     container: {
@@ -61,6 +61,6 @@ const styles = StyleSheet.create({
       borderRadius: 10,
   
     }
-  });
+  })
 
   export default styles

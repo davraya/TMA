@@ -1,31 +1,31 @@
 // CustomSlider.js
 
-import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import Slider from '@react-native-community/slider';
+import React, { useState } from 'react'
+import { View, StyleSheet, Text } from 'react-native'
+import Slider from '@react-native-community/slider'
 
 const CustomSlider = ({ onValueChange }) => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(1)
 
   const getLabel = (value) => {
     switch (value) {
       case 1:
-        return 'Low';
+        return 'Low'
       case 2:
-        return 'Medium';
+        return 'Medium'
       case 3:
-        return 'High';
+        return 'High'
       default:
-        return '';
+        return ''
     }
-  };
+  }
 
   const handleValueChange = (newValue) => {
-    setValue(newValue);
+    setValue(newValue)
     if (onValueChange) {
-      onValueChange(newValue);
+      onValueChange(newValue)
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -47,8 +47,8 @@ const CustomSlider = ({ onValueChange }) => {
         <Text style={styles.valueLabel}>High</Text>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
   valueLabel: {
     fontSize: 12,
   },
-});
+})
 
-export default CustomSlider;
+export default CustomSlider

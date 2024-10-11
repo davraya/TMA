@@ -1,35 +1,27 @@
-import 'react-native-gesture-handler';
-import { Audio } from 'expo-av';
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import SigninScreen from './src/screens/SigninScreen'
-import SignupScreen from "./src/screens/SignupScreen";
-import CustomDrawer from './src/components/CustomDrawer';
+import SignupScreen from "./src/screens/SignupScreen"
+import CustomDrawer from './src/components/CustomDrawer'
+import { useDispatch, Provider, useSelector } from 'react-redux'
+import { store } from "./src/redux/store"
+import { supabase } from "./src/supabase"
+import HomeStack from './src/navigation/HomeStack'
 
-import { useDispatch, Provider, useSelector } from 'react-redux';
-import { store } from "./src/redux/store";
-import { supabase } from "./src/supabase";
-import HomeStack from './src/navigation/HomeStack';
-
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator()
+const Drawer = createDrawerNavigator()
 
 
 const App = () => {
     const isSignedIn  = useSelector(state => state.session.isSignedIn)
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
-        const disableSounds = async () => {
-            await Audio.setAudioModeAsync({
-                isMuted : true,
-            })
+
         const checkLogin  = async () => {
             const {data : {session}} = await supabase.auth.getSession()
             if(session){
@@ -37,12 +29,10 @@ const App = () => {
             }
         }
 
-        disableSounds()
-
         checkLogin()
 
-    }
-    }, [isSignedIn]);
+    
+    }, [isSignedIn])
 
     const screenOptions={
         headerShown: false,
@@ -76,11 +66,11 @@ const App = () => {
     </NavigationContainer>
     )
 
-};
+}
 
 
 export default () => (
     <Provider store={store}>
         <App />
     </Provider>
-);
+)

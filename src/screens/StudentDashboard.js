@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { ListItem, Icon, Text } from '@rneui/base';
-import Swiper from 'react-native-swiper';
-import { MaterialIcons } from '@expo/vector-icons';
-import { fetchPeersTasks, fetchUsersTasks } from '../models/fetch';
-import { updateTaskStatus } from '../models/update';
-import { getUserUid } from '../util/user';
-import Spacer from '../components/Spacer';
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { ListItem, Icon, Text } from '@rneui/base'
+import Swiper from 'react-native-swiper'
+import { MaterialIcons } from '@expo/vector-icons'
+import { fetchPeersTasks, fetchUsersTasks } from '../models/fetch'
+import { updateTaskStatus } from '../models/update'
+import { getUserUid } from '../models/user'
+import Spacer from '../components/Spacer'
 
 const StudentDashboard = ({ navigation }) => {
-  const [peersTasks, setPeersTasks] = useState([]);
-  const [myTasks, setMyTasks] = useState([]);
-  const [reload, setReload] = useState(false);
+  const [peersTasks, setPeersTasks] = useState([])
+  const [myTasks, setMyTasks] = useState([])
+  const [reload, setReload] = useState(false)
 
   const rerender = () => {
-    setReload(!reload);
-  };
+    setReload(!reload)
+  }
 
   useEffect(() => {
     const configure = async () => {
       try {
-        const user_uid = await getUserUid();
-        const tasks = await fetchPeersTasks(user_uid);
-        setPeersTasks(tasks);
-        const usersTasks = await fetchUsersTasks(user_uid);
-        console.log(usersTasks);
-        setMyTasks(usersTasks);
+        const user_uid = await getUserUid()
+        const tasks = await fetchPeersTasks(user_uid)
+        setPeersTasks(tasks)
+        const usersTasks = await fetchUsersTasks(user_uid)
+        console.log(usersTasks)
+        setMyTasks(usersTasks)
       } catch (error) {
-        console.error('Error fetching peers tasks:', error);
+        console.error('Error fetching peers tasks:', error)
       }
-    };
+    }
 
-    configure();
-  }, [reload]);
+    configure()
+  }, [reload])
 
   const renderTask = ({ item }) => (
     <View style={styles.taskContainer}>
@@ -54,7 +54,7 @@ const StudentDashboard = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
     </View>
-  );
+  )
 
   const renderUsersTask = ({ item }) => (
     <View style={styles.taskContainer}>
@@ -64,7 +64,7 @@ const StudentDashboard = ({ navigation }) => {
             <TouchableOpacity
               style={styles.studentInfo}
               onPress={() => {
-                navigation.navigate('Task', { task: item });
+                navigation.navigate('Task', { task: item })
               }}
             >
               <MaterialIcons name="task-alt" size={24} color="#1E90FF" style={{ marginRight: 5 }} />
@@ -75,8 +75,8 @@ const StudentDashboard = ({ navigation }) => {
                 disabled={item.status_name === 'Waiting for Supervisor'}
                 style={styles.assignTaskContainer}
                 onPress={async () => {
-                  await updateTaskStatus(item.id, 2);
-                  rerender();
+                  await updateTaskStatus(item.id, 2)
+                  rerender()
                 }}
               >
                 <Text
@@ -95,7 +95,7 @@ const StudentDashboard = ({ navigation }) => {
         </ListItem.Content>
       </ListItem>
     </View>
-  );
+  )
 
   return (
     <View style={styles.container}>
@@ -124,8 +124,8 @@ const StudentDashboard = ({ navigation }) => {
         </View>
       </Swiper>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -191,6 +191,6 @@ const styles = StyleSheet.create({
   activeText: {
     color: 'blue',
   },
-});
+})
 
-export default StudentDashboard;
+export default StudentDashboard

@@ -1,17 +1,17 @@
-import React from "react";
+import React from "react"
 import { Text, Button, Input } from '@rneui/base'
-import { useState } from "react";
-import Spacer from "../components/Spacer";
-import { supabase } from "../supabase";
-import { fetchGroups } from "../models/fetch";
-import { useDispatch } from "react-redux";
+import { useState } from "react"
+import Spacer from "../components/Spacer"
+import { supabase } from "../supabase"
+import { fetchGroups } from "../models/fetch"
+import { useDispatch } from "react-redux"
 
 
-const AddGroupScreen =  ({ route, navigation }) => {
+const AddGroupScreen =  ({ navigation }) => {
 
   const dispatch = useDispatch()
   const [groupName, setGroupName] = useState('')
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false)
   const [isDuplicate, setIsDuplicate] = useState(false)
 
   const lengthIsGood = groupName.length > 5
@@ -24,10 +24,10 @@ const AddGroupScreen =  ({ route, navigation }) => {
           .from('groups')
           .insert({group_name : groupName, created_by: localSession.data.session.user.id})
         if(error){
-          setIsDuplicate(true); // Show message if length is less than 5
+          setIsDuplicate(true) // Show message if length is less than 5
           setTimeout(() => {
-            setIsDuplicate(false); // Hide message after 3 seconds
-          }, 3000);
+            setIsDuplicate(false) // Hide message after 3 seconds
+          }, 3000)
         } else{
 
           const groups = await fetchGroups()
@@ -40,14 +40,14 @@ const AddGroupScreen =  ({ route, navigation }) => {
     }
       
     else {
-      setShowMessage(true); // Show message if length is less than 5
+      setShowMessage(true) // Show message if length is less than 5
       setTimeout(() => {
-        setShowMessage(false); // Hide message after 3 seconds
-      }, 4000);
+        setShowMessage(false) // Hide message after 3 seconds
+      }, 4000)
     }
     
 
-  };
+  }
 
   return(
     <>
@@ -86,15 +86,15 @@ AddGroupScreen.navigationOptions = () => {
     // headerShown: false,
     title: ''
     
-  };
-};
+  }
+}
 
 AddGroupScreen.navigationOptions = () => {
   return {
     // headerShown: false,
     title: ''
     
-  };
-};
+  }
+}
 
 export default AddGroupScreen

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert, ActivityIndicator } from "react-native";
+import React, { useState, useEffect } from "react"
+import { View, StyleSheet, Alert, ActivityIndicator } from "react-native"
 import { Text, Button, Input } from '@rneui/base'
-import Spacer from "../components/Spacer";
+import Spacer from "../components/Spacer"
 import NavLink from '../components/NavLink'
 import { supabase } from '../supabase'
-import { useDispatch } from "react-redux";
-import OAuthGoogleButton from "../components/OAuthGoogleButton";
+import { useDispatch } from "react-redux"
 
 const SigninScreen = ({ navigation }) => {
 
@@ -57,7 +56,7 @@ const SigninScreen = ({ navigation }) => {
                 <Button title='Sign in' onPress={async () => {
                     setLoading(true)
                     const { data, error} = await supabase.auth.signInWithPassword({ email, password })
-                    console.log(supabase);
+                    console.log(supabase)
                     
                     setLoading(false)
                     if(!error){
@@ -82,8 +81,8 @@ const SigninScreen = ({ navigation }) => {
 SigninScreen.navigationOptions = () => {
     return {
       headerShown: false,
-    };
-  };
+    }
+  }
 
   const styles = StyleSheet.create({
     container:{

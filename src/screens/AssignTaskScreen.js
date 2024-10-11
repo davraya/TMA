@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import { Text, ListItem, FAB, SpeedDial, Icon } from '@rneui/base';
-import Spacer from '../components/Spacer';
-import { fetchTasks } from '../models/fetch';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { asssignTask } from '../models/insert';
-import CustomSlider from '../components/CustomSlider';
+import React, { useEffect, useState } from 'react'
+import { View, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator } from 'react-native'
+import { Text, ListItem, SpeedDial } from '@rneui/base'
+import Spacer from '../components/Spacer'
+import { fetchTasks } from '../models/fetch'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
+import { asssignTask } from '../models/insert'
+import CustomSlider from '../components/CustomSlider'
 
 const AssignTaskScreen = ({ navigation, route }) => {
-  const { params: { userParam } } = route;
-  const [tasks, setTasks] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [deleteMode, setDeleteMode] = useState(false);
-  const [dropdowns, setDropdowns] = useState({});
-  const [user, setUser] = useState(userParam);
-  const [priroity, setPriority] = useState(1);
+  const { params: { userParam } } = route
+  const [tasks, setTasks] = useState([])
+  const [open, setOpen] = useState(false)
+  const [deleteMode, setDeleteMode] = useState(false)
+  const [dropdowns, setDropdowns] = useState({})
+  const [user, setUser] = useState(userParam)
+  const [priroity, setPriority] = useState(1)
 
   useEffect(() => {
     const configureScreen = async () => {
-      const tasksResult = await fetchTasks();
-      setTasks(tasksResult);
-    };
+      const tasksResult = await fetchTasks()
+      setTasks(tasksResult)
+    }
 
-    configureScreen();
-  }, []);
+    configureScreen()
+  }, [])
 
   const toggleDropdown = (index) => {
     setDropdowns((prevDropdowns) => ({
       ...prevDropdowns,
       [index]: !prevDropdowns[index],
-    }));
-  };
+    }))
+  }
 
   const renderItem = ({ item, index }) => (
     <View>
@@ -51,8 +51,8 @@ const AssignTaskScreen = ({ navigation, route }) => {
           <TouchableOpacity 
             style={styles.assignTaskContainer}
             onPress={async () => {
-                await asssignTask(item.id, user.user_uuid, priroity);
-                navigation.goBack();
+                await asssignTask(item.id, user.user_uuid, priroity)
+                navigation.goBack()
                 
             }}
             >
@@ -66,7 +66,7 @@ const AssignTaskScreen = ({ navigation, route }) => {
         </View>
       )}
     </View>
-  );
+  )
 
   return (
     <View style={styles.container}>
@@ -108,8 +108,8 @@ const AssignTaskScreen = ({ navigation, route }) => {
           title="Add Task"
           buttonStyle={styles.addTaskDial}
           onPress={() => {
-            setOpen(!open);
-            navigation.navigate('AddTask');
+            setOpen(!open)
+            navigation.navigate('AddTask')
           }}
         />
         <SpeedDial.Action
@@ -117,8 +117,8 @@ const AssignTaskScreen = ({ navigation, route }) => {
           title="Add User"
           buttonStyle={styles.addUserDial}
           onPress={() => {
-            setOpen(!open);
-            navigation.navigate('AddUser', { groupId: id });
+            setOpen(!open)
+            navigation.navigate('AddUser', { groupId: id })
           }}
         />
         <SpeedDial.Action
@@ -126,14 +126,14 @@ const AssignTaskScreen = ({ navigation, route }) => {
           title="Delete user(s)"
           buttonStyle={styles.deleteDial}
           onPress={() => {
-            setDeleteMode(!deleteMode);
-            setOpen(!open);
+            setDeleteMode(!deleteMode)
+            setOpen(!open)
           }}
         />
       </SpeedDial>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -206,6 +206,6 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingVertical: 10,
   },
-});
+})
 
-export default AssignTaskScreen;
+export default AssignTaskScreen

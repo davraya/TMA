@@ -1,39 +1,39 @@
 // src/components/CustomDrawer.js
-import React, { useState, useEffect } from 'react';
-import { View, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { useDispatch, useSelector } from 'react-redux';
-import { supabase } from '../supabase';
+import React, { useState, useEffect } from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
+import { useDispatch, useSelector } from 'react-redux'
+import { supabase } from '../supabase'
 import { fetchUserById } from '../models/fetch'
-import { Text, Icon } from '@rneui/base';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Text, Icon } from '@rneui/base'
+import { MaterialIcons } from '@expo/vector-icons'
 
 const CustomDrawer = (props) => {
   const [userName, setUsername] = useState('')
   const isSignedIn  = useSelector(state => state.session.isSignedIn)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     
 
     const configureComponent = async () => {
 
-      const userNameResult = await fetchUserById();
+      const userNameResult = await fetchUserById()
       setUsername(userNameResult)
     }
 
     configureComponent()
     
-  }, [isSignedIn]);
+  }, [isSignedIn])
 
   const handleLogout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut()
       if (error) {
-        console.error('Error signing out:', error.message);
+        console.error('Error signing out:', error.message)
       } else {
-        console.log('User signed out successfully');
+        console.log('User signed out successfully')
         dispatch({ type : 'hasSignedOut' })
         dispatch({ type: 'clearGroups' })
         dispatch({ type: 'roleNotSelected' })
@@ -42,7 +42,7 @@ const CustomDrawer = (props) => {
     } catch (error) {
       console.error('Unexpected error during sign out:', error.message)
     }
-  };
+  }
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{flexGrow: 1}}>
@@ -63,8 +63,8 @@ const CustomDrawer = (props) => {
         
       </View>
     </DrawerContentScrollView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
   icon : {
     padding: 5
   }
-  });
+  })
 
-export default CustomDrawer;
+export default CustomDrawer

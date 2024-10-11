@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native'
 
 
 function ErrorOverlay({ message }) {
@@ -7,10 +7,10 @@ function ErrorOverlay({ message }) {
       <Text style={[styles.text, styles.title]}>An error occurred!</Text>
       <Text style={styles.text}>{message}</Text>
     </View>
-  );
+  )
 }
 
-export default ErrorOverlay;
+export default ErrorOverlay
 
 const styles = StyleSheet.create({
   container: {
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-});
+})

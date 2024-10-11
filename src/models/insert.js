@@ -1,5 +1,5 @@
-import { supabase } from "../supabase";
-import { getUserUid } from "../util/user";
+import { supabase } from "../supabase"
+import { getUserUid } from "../models/user"
 
 
 const updateUserRole = async (selectedRole, user_uid, groupCode) => {
@@ -11,7 +11,7 @@ const updateUserRole = async (selectedRole, user_uid, groupCode) => {
 
     } catch(e)
     {
-        console.log('error updating user role', e);
+        console.log('error updating user role', e)
     }
 
     const { error2 } = await supabase
@@ -25,7 +25,7 @@ const addUserToGroup = async (groupId, uid) =>{
         const { error } = await supabase
         .from('user_group_membership')
         .insert({group_id : groupId, user_uid: uid, role: 'student'})
-    console.log('addUserToGroup e', error);
+    console.log('addUserToGroup e', error)
 }
 
 const insertName = async (first_name, last_name) => {
@@ -38,7 +38,7 @@ const insertName = async (first_name, last_name) => {
         
         return {error}
     } catch (e) {
-        console.log('error inserting name', e);
+        console.log('error inserting name', e)
     }
 
 }
@@ -51,7 +51,7 @@ const insertNewTask = async (title, description, status) => {
         
         return {error}
     } catch (e) {
-        console.log('error inserting new task', e);
+        console.log('error inserting new task', e)
     }
 }
 
@@ -60,14 +60,14 @@ const asssignTask = async (task_id, user_uid, priority_id) => {
         const { error } = await supabase
             .from('task_assignments')
             .insert({task_id, student_id: user_uid, status_id: 1, priority_id})
-        console.log('asssignTask e', error);
+        console.log('asssignTask e', error)
 
         if(error)
             throw error
         return {success: true}
         
         } catch (e) {
-        console.log('error assigning task', e);
+        console.log('error assigning task', e)
     }
 }
 
